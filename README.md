@@ -35,7 +35,7 @@ Deployment Ready: Works with MongoDB Atlas or local MongoDB
 🔹 Login Page
 ![login Page](images/login.png)
 🔹 Home Feed
-![home Page](images/feed(2).png)
+![home Page](images/feed.png)
 🔹 Follow/Unfollow
 ![ Page](images/follow.png)
 
