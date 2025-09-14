@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MicroBlog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav id="navbar" style="display: none;">
+            <div class="nav-content">
+                <h1>MicroBlog</h1>
+                <div class="nav-links">
+                    <button id="homeBtn" class="nav-btn active">Home</button>
+                    <button id="profileBtn" class="nav-btn">Profile</button>
+                    <button id="logoutBtn" class="nav-btn">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Authentication Forms -->
+        <div id="authContainer">
+            <div class="auth-card">
+                <h1>Welcome to MicroBlog</h1>
+                
+                <!-- Login Form -->
+                <div id="loginForm">
+                    <h2>Login</h2>
+                    <form id="loginFormElement">
+                        <input type="email" id="loginEmail" placeholder="Email" required>
+                        <input type="password" id="loginPassword" placeholder="Password" required>
+                        <button type="submit">Login</button>
+                    </form>
+                    <p>Don't have an account? <a href="#" id="showRegister">Register here</a></p>
+                </div>
+
+                <!-- Register Form -->
+                <div id="registerForm" style="display: none;">
+                    <h2>Register</h2>
+                    <form id="registerFormElement">
+                        <input type="text" id="registerUsername" placeholder="Username" required>
+                        <input type="email" id="registerEmail" placeholder="Email" required>
+                        <input type="password" id="registerPassword" placeholder="Password" required>
+                        <button type="submit">Register</button>
+                    </form>
+                    <p>Already have an account? <a href="#" id="showLogin">Login here</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main App Container -->
+        <div id="appContainer" style="display: none;">
+            <!-- Home View -->
+            <div id="homeView">
+                <div class="main-content">
+                    <!-- Create Post -->
+                    <div class="create-post">
+                        <textarea id="postContent" placeholder="What's happening?" maxlength="280"></textarea>
+                        <div class="post-actions">
+                            <span id="charCount">280</span>
+                            <button id="postBtn">Post</button>
+                        </div>
+                    </div>
+
+                    <!-- Feed -->
+                    <div id="feed" class="feed">
+                        <!-- Posts will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <div class="user-info">
+                        <h3 id="currentUsername"></h3>
+                        <p id="currentUserBio"></p>
+                        <div class="user-stats">
+                            <span><strong id="followingCount">0</strong> Following</span>
+                            <span><strong id="followersCount">0</strong> Followers</span>
+                        </div>
+                    </div>
+
+                    <!-- User Search -->
+                    <div class="search-section">
+                        <h4>Find Users</h4>
+                        <input type="text" id="userSearch" placeholder="Search users...">
+                        <div id="searchResults"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile View -->
+            <div id="profileView" style="display: none;">
+                <div id="profileContent">
+                    <!-- Profile content will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading indicator -->
+        <div id="loading" style="display: none;">Loading...</div>
+
+        <!-- Error messages -->
+        <div id="errorMessage" class="error" style="display: none;"></div>
+        <div id="successMessage" class="success" style="display: none;"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
