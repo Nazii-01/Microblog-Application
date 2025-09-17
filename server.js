@@ -20,29 +20,42 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Connect to MongoDB
-const MONGODB_URI = process.env.MONGODB_URL || process.env.MONGODB_URI || 'mongodb://localhost:27017/microblog';
+// MongoDB Connection
+const mongoose = require('mongoose');
 
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => {
-  console.log('Connected to MongoDB');
-  console.log('Database:', MONGODB_URI);
-})
-.catch(err => {
-  console.error('MongoDB connection error:', err);
-  process.exit(1);
-});
+const MONGODB_URI =
+  process.env.MONGODB_URI || // Railway / production
+  process.env.MONGODB_URL || // optional alternative
+  'mongodb://localhost:27017/microblog'; // local fallback
 
-// Handle MongoDB connection events
+const connectDB = async () => {
+  try {
+    await mongoose.connect(MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    console.log('✅ Connected to MongoDB');
+    console.log('Database URI:', MONGODB_URI.startsWith('mongodb://localhost') ? MONGODB_URI : MONGODB_URI.slice(0, 30) + '...');
+
+  } catch (err) {
+    console.error('❌ MongoDB connection error:', err.message);
+    process.exit(1); // exit if DB connection fails
+  }
+};
+
+// Event listeners for debugging connection
 mongoose.connection.on('disconnected', () => {
-  console.log('MongoDB disconnected');
+  console.warn('⚠️ MongoDB disconnected');
 });
 
 mongoose.connection.on('reconnected', () => {
-  console.log('MongoDB reconnected');
+  console.log('♻️ MongoDB reconnected');
 });
+
+// Connect
+connectDB();
+
 
 // Routes
 app.use('/api/auth', authRoutes);
