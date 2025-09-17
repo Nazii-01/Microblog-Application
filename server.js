@@ -20,9 +20,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Connect to MongoDB
-
-
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI =
+  process.env.MONGO_URI ||   // Your actual environment variable name
+  process.env.MONGODB_URI || // Railway / production
+  process.env.MONGODB_URL || // optional alternative
+  'mongodb://localhost:27017/microblog'; // local fallback
 
 const connectDB = async () => {
   try {
@@ -51,7 +53,6 @@ mongoose.connection.on('reconnected', () => {
 
 // Connect
 connectDB();
-
 
 // Routes
 app.use('/api/auth', authRoutes);
