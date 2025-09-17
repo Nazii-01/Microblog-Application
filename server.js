@@ -2,7 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
-require('dotenv').config();
+
+// Only load dotenv in development (Railway provides env vars directly)
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/posts');
@@ -20,11 +24,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Connect to MongoDB
+// Debug: Check what environment variables are available
+console.log('🔍 Debugging environment variables:');
+console.log('MONGO_URI:', process.env.MONGO_URI ? 'Found' : 'Not found');
+console.log('MONGODB_URI:', process.env.MONGODB_URI ? 'Found' : 'Not found');
+console.log('NODE_ENV:', process.env.NODE_ENV);
+
 const MONGODB_URI =
   process.env.MONGO_URI ||   // Your actual environment variable name
   process.env.MONGODB_URI || // Railway / production
   process.env.MONGODB_URL || // optional alternative
   'mongodb://localhost:27017/microblog'; // local fallback
+
+console.log('📍 Using MongoDB URI:', MONGODB_URI.startsWith('mongodb://localhost') ? MONGODB_URI : MONGODB_URI.slice(0, 30) + '...');
 
 const connectDB = async () => {
   try {
