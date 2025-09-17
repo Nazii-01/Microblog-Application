@@ -23,18 +23,36 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Connect to MongoDB
 // Debug: Check what environment variables are available
-console.log('🔍 Debugging environment variables:');
-console.log('MONGO_URI:', process.env.MONGO_URI ? 'Found' : 'Not found');
-console.log('MONGODB_URI:', process.env.MONGODB_URI ? 'Found' : 'Not found');
+console.log('🔍 Debugging ALL environment variables:');
+console.log('Total env vars:', Object.keys(process.env).length);
 console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('PORT:', process.env.PORT);
+console.log('Available vars:', Object.keys(process.env).filter(key => 
+  !key.startsWith('npm_') && !key.startsWith('_')
+).slice(0, 10));
+
+// Try all possible MongoDB URI variable names
+const possibleMongoVars = [
+  'MONGO_URI',
+  'MONGODB_URI', 
+  'DATABASE_URL',
+  'DB_URI',
+  'MONGO_URL'
+];
+
+console.log('🔍 Checking MongoDB variables:');
+possibleMongoVars.forEach(varName => {
+  console.log(`${varName}:`, process.env[varName] ? 'Found' : 'Not found');
+});
 
 const MONGODB_URI =
-  process.env.MONGO_URI ||   // Your actual environment variable name
-  process.env.MONGODB_URI || // Railway / production
-  process.env.MONGODB_URL || // optional alternative
-  'mongodb://localhost:27017/microblog'; // local fallback
+  process.env.MONGO_URI ||   
+  process.env.DATABASE_URL || 
+  process.env.MONGODB_URI || 
+  process.env.DB_URI ||
+  process.env.MONGO_URL ||
+  'mongodb://localhost:27017/microblog';
 
 console.log('📍 Using MongoDB URI:', MONGODB_URI.startsWith('mongodb://localhost') ? MONGODB_URI : MONGODB_URI.slice(0, 30) + '...');
 
