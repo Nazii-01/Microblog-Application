@@ -48,10 +48,10 @@ possibleMongoVars.forEach(varName => {
 
 const MONGODB_URI =
   process.env.MONGO_URI ||   
+  process.env.MONGO_URL ||   // Railway's built-in MongoDB
   process.env.DATABASE_URL || 
   process.env.MONGODB_URI || 
   process.env.DB_URI ||
-  process.env.MONGO_URL ||
   'mongodb://localhost:27017/microblog';
 
 console.log('📍 Using MongoDB URI:', MONGODB_URI.startsWith('mongodb://localhost') ? MONGODB_URI : MONGODB_URI.slice(0, 30) + '...');
