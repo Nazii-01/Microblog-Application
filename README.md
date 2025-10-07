@@ -1,23 +1,23 @@
-📘 MicroBlog
+# MicroBlog
 
 A simple micro-blogging application (similar to Twitter) built with Node.js, Express, MongoDB, and EJS.
 Users can register, login, create posts, follow/unfollow other users, and view posts from people they follow.
 
-🚀 Features
+## Features
 
-👤 User Registration & Login (Authentication with sessions)
+- User Registration & Login (Authentication with sessions)
 
-📝 Create and delete posts
+- Create and delete posts
 
-❤️ Like posts
+- Like posts
 
-👥 Follow/Unfollow other users
+- Follow/Unfollow other users
 
-📄 View profiles with posts, followers, and following counts
+- View profiles with posts, followers, and following counts
 
-🔍 Search users
+- Search users
 
-🛠️ Tech Stack
+## Tech Stack
 
 Backend: Node.js, Express.js
 
@@ -39,7 +39,7 @@ Deployment Ready: Works with MongoDB Atlas or local MongoDB
 🔹 Follow/Unfollow
 ![ Page](images/follow.png)
 
-🤝 Contributing
+## Contributing
 
 Fork the repo
 
@@ -51,6 +51,6 @@ Push to branch (git push origin feature-name)
 
 Create a Pull Request
 
-📜 License
+## License
 
 This project is licensed under the MIT License.
